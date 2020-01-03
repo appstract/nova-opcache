@@ -42,18 +42,28 @@
                     <span class="text-warning" v-else>Not optimized for production</span>
                 </p>
             </card>
-            <card
-                class="w-1/3 m-2 p-4 bg-black text-white"
-            >
-                <heading class="text-white mb-4">
-                    Stats
-                </heading>
-                <p class="mb-2 ml-4">Cache full: <strong>{{ status.cache_full}}</strong></p>
-                <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
-                <p class="mb-2 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong></p>
-                <p class="mb-2 ml-4">Hits: <strong>{{ status.opcache_statistics.hits}}</strong></p>
-                <p class="mb-2 ml-4">Misses: <strong>{{ status.opcache_statistics.misses}}</strong></p>
-            </card>
+<!--            <card-->
+<!--                class="w-1/3 m-2 p-4 bg-black text-white"-->
+<!--            >-->
+<!--                <heading class="text-white mb-4">-->
+<!--                    Stats-->
+<!--                </heading>-->
+<!--                <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>-->
+<!--                <p class="mb-4 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>-->
+<!--                <p class="mb-2 ml-4">Hits: <strong>{{ status.opcache_statistics.hits}}</strong></p>-->
+<!--                <p class="mb-2 ml-4">Misses: <strong>{{ status.opcache_statistics.misses}}</strong></p>-->
+<!--                <p class="mb-4 ml-4">Hit rate: <strong>{{ status.opcache_statistics.opcache_hit_rate }}</strong></p>-->
+<!--                <p class="mb-2 ml-4">Blacklist misses: <strong>{{ status.opcache_statistics.blacklist_misses }}</strong></p>-->
+<!--                <p class="mb-2 ml-4">Blacklist miss rate: <strong>{{ status.opcache_statistics.blacklist_miss_ratio }}</strong></p>-->
+<!--            </card>-->
+
+            <BasePartitionMetric
+                title="Memory Usage"
+                help-text="Memory Usage in MB"
+                help-width="600"
+                :chart-data="memoryChart"
+                :loading="false"
+            />
 
             <BasePartitionMetric
                 title="Memory Usage"
@@ -64,24 +74,36 @@
             />
         </div>
         <div class="flex bg-gray-200">
-            <card
-                class="w-1/3 m-2 p-4 bg-black text-white"
-            >
-                <heading class="text-white mb-4">
-                    Status
-                </heading>
-                <ul>
-                    <li class="mb-1">
-                        restart_pending: <strong>{{ status.restart_pending }}</strong>
-                    </li>
-                    <li class="mb-1">
-                        restart_in_progress: <strong>{{ status.restart_in_progress }}</strong>
-                    </li>
-                    <li class="mb-1" v-for="(item, key) in status.opcache_statistics">
-                        {{ key }}: <strong>{{ item }}</strong>
-                    </li>
-                </ul>
-            </card>
+            <div class="flex flex-col w-1/3 m-2">
+                <card class="w-full p-4 bg-black text-white">
+                    <heading class="text-white mb-4">
+                        Stats
+                    </heading>
+                    <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
+                    <p class="mb-4 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>
+                    <p class="mb-2 ml-4">Hits: <strong>{{ status.opcache_statistics.hits}}</strong></p>
+                    <p class="mb-2 ml-4">Misses: <strong>{{ status.opcache_statistics.misses}}</strong></p>
+                    <p class="mb-4 ml-4">Hit rate: <strong>{{ status.opcache_statistics.opcache_hit_rate.toFixed(2) }}</strong></p>
+                    <p class="mb-2 ml-4">Blacklist misses: <strong>{{ status.opcache_statistics.blacklist_misses }}</strong></p>
+                    <p class="mb-2 ml-4">Blacklist miss rate: <strong>{{ status.opcache_statistics.blacklist_miss_ratio }}</strong></p>
+                </card>
+
+                <card class="w-full mt-4 p-4 bg-black text-white">
+                    <heading class="text-white mb-4">
+                        Status
+                    </heading>
+                    <p class="mb-2 ml-4">Cache full: <strong>{{ status.cache_full }}</strong><p>
+                    <p class="mb-2 ml-4">Restart pending: <strong>{{ status.restart_pending }}</strong></p>
+                    <p class="mb-4 ml-4">Restart in progress: <strong>{{ status.restart_in_progress }}</strong></p>
+                    <p class="mb-2 ml-4">Start time: <strong>{{ new Date(status.opcache_statistics.start_time) }}</strong></p>
+                    <p class="mb-4 ml-4">Last restart time: <strong>{{ new Date(status.opcache_statistics.last_restart_time) }}</strong</p>
+                    <p class="mb-2 ml-4">Oom restarts: <strong>{{ status.opcache_statistics.oom_restarts }}</strong></p>
+                    <p class="mb-2 ml-4">Hash restarts: <strong>{{ status.opcache_statistics.hash_restarts }}</strong></p>
+                    <p class="mb-2 ml-4">Manual restarts: <strong>{{ status.opcache_statistics.manual_restarts }}</strong></p>
+                </card>
+
+            </div>
+
             <card
                 class="w-2/3 m-2 p-4 bg-black text-white"
             >

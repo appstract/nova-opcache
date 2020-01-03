@@ -387,7 +387,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -663,6 +663,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PartitionMetric__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PartitionMetric___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__PartitionMetric__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -18762,47 +18784,15 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c(
-          "card",
-          { staticClass: "w-1/3 m-2 p-4 bg-black text-white" },
-          [
-            _c("heading", { staticClass: "text-white mb-4" }, [
-              _vm._v("\n                    Stats\n                ")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-2 ml-4" }, [
-              _vm._v("Cache full: "),
-              _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-2 ml-4" }, [
-              _vm._v("Cached scripts: "),
-              _c("strong", [
-                _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_scripts))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-2 ml-4" }, [
-              _vm._v("Cached keys: "),
-              _c("strong", [
-                _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_keys))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-2 ml-4" }, [
-              _vm._v("Hits: "),
-              _c("strong", [_vm._v(_vm._s(_vm.status.opcache_statistics.hits))])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-2 ml-4" }, [
-              _vm._v("Misses: "),
-              _c("strong", [
-                _vm._v(_vm._s(_vm.status.opcache_statistics.misses))
-              ])
-            ])
-          ],
-          1
-        ),
+        _c("BasePartitionMetric", {
+          attrs: {
+            title: "Memory Usage",
+            "help-text": "Memory Usage in MB",
+            "help-width": "600",
+            "chart-data": _vm.memoryChart,
+            loading: false
+          }
+        }),
         _vm._v(" "),
         _c("BasePartitionMetric", {
           attrs: {
@@ -18822,34 +18812,160 @@ var render = function() {
       { staticClass: "flex bg-gray-200" },
       [
         _c(
-          "card",
-          { staticClass: "w-1/3 m-2 p-4 bg-black text-white" },
+          "div",
+          { staticClass: "flex flex-col w-1/3 m-2" },
           [
-            _c("heading", { staticClass: "text-white mb-4" }, [
-              _vm._v("\n                    Status\n                ")
-            ]),
+            _c(
+              "card",
+              { staticClass: "w-full p-4 bg-black text-white" },
+              [
+                _c("heading", { staticClass: "text-white mb-4" }, [
+                  _vm._v(
+                    "\n                        Stats\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Cached scripts: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm.status.opcache_statistics.num_cached_scripts)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-4 ml-4" }, [
+                  _vm._v("Cached keys: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm.status.opcache_statistics.num_cached_keys)
+                    )
+                  ]),
+                  _vm._v(
+                    " (max " +
+                      _vm._s(_vm.status.opcache_statistics.max_cached_keys) +
+                      ")"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Hits: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.status.opcache_statistics.hits))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Misses: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.status.opcache_statistics.misses))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-4 ml-4" }, [
+                  _vm._v("Hit rate: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.status.opcache_statistics.opcache_hit_rate.toFixed(
+                          2
+                        )
+                      )
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Blacklist misses: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm.status.opcache_statistics.blacklist_misses)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Blacklist miss rate: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm.status.opcache_statistics.blacklist_miss_ratio)
+                    )
+                  ])
+                ])
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
-              "ul",
+              "card",
+              { staticClass: "w-full mt-4 p-4 bg-black text-white" },
               [
-                _c("li", { staticClass: "mb-1" }, [
-                  _vm._v("\n                        restart_pending: "),
+                _c("heading", { staticClass: "text-white mb-4" }, [
+                  _vm._v(
+                    "\n                        Status\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Cache full: "),
+                  _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
+                ]),
+                _c("p"),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Restart pending: "),
                   _c("strong", [_vm._v(_vm._s(_vm.status.restart_pending))])
                 ]),
                 _vm._v(" "),
-                _c("li", { staticClass: "mb-1" }, [
-                  _vm._v("\n                        restart_in_progress: "),
+                _c("p", { staticClass: "mb-4 ml-4" }, [
+                  _vm._v("Restart in progress: "),
                   _c("strong", [_vm._v(_vm._s(_vm.status.restart_in_progress))])
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.status.opcache_statistics, function(item, key) {
-                  return _c("li", { staticClass: "mb-1" }, [
-                    _vm._v("\n                        " + _vm._s(key) + ": "),
-                    _c("strong", [_vm._v(_vm._s(item))])
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Start time: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(new Date(_vm.status.opcache_statistics.start_time))
+                    )
                   ])
-                })
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-4 ml-4" }, [
+                  _vm._v("Last restart time: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(
+                        new Date(
+                          _vm.status.opcache_statistics.last_restart_time
+                        )
+                      )
+                    )
+                  ])
+                ]),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Oom restarts: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.status.opcache_statistics.oom_restarts))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Hash restarts: "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.status.opcache_statistics.hash_restarts))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mb-2 ml-4" }, [
+                  _vm._v("Manual restarts: "),
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm.status.opcache_statistics.manual_restarts)
+                    )
+                  ])
+                ])
               ],
-              2
+              1
             )
           ],
           1
