@@ -60,43 +60,70 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(1);
-module.exports = __webpack_require__(11);
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-Nova.booting(function (Vue, router, store) {
-  router.addRoutes([{
-    name: 'nova-opcache',
-    path: '/nova-opcache',
-    component: __webpack_require__(2)
-  }]);
-});
+__webpack_require__(2);
+module.exports = __webpack_require__(17);
+
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+Nova.booting(function (Vue, router, store) {
+  router.addRoutes([{
+    name: 'nova-opcache',
+    path: '/nova-opcache',
+    component: __webpack_require__(3)
+  }]);
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(3)
+  __webpack_require__(4)
 }
-var normalizeComponent = __webpack_require__(8)
+var normalizeComponent = __webpack_require__(9)
 /* script */
-var __vue_script__ = __webpack_require__(9)
+var __vue_script__ = __webpack_require__(10)
 /* template */
-var __vue_template__ = __webpack_require__(10)
+var __vue_template__ = __webpack_require__(16)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -135,17 +162,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("6e5db1d0", content, false, {});
+var update = __webpack_require__(7)("6e5db1d0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -161,21 +188,21 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)(false);
+exports = module.exports = __webpack_require__(6)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /*
@@ -257,7 +284,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -276,7 +303,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(7)
+var listToStyles = __webpack_require__(8)
 
 /*
 type StyleObject = {
@@ -485,7 +512,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -518,7 +545,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -627,13 +654,51 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -700,11 +765,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             status: [],
+            config: [],
             loading: false
         };
     },
+
+
+    computed: {
+        production: function production() {
+
+            if (this.config.directives["opcache.memory_consumption"] >= 128000000 && this.config.directives["opcache.interned_strings_buffer"] >= 16 && !this.config.directives["opcache.validate_timestamps"]) {
+                return true;
+            }
+
+            return false;
+        },
+        notOptimizedKeys: function notOptimizedKeys() {
+            var keys = [];
+
+            if (!this.config.directives["opcache.enable"]) {
+                keys.push("opcache.enable");
+            }
+
+            if (!this.config.directives["opcache.dups_fix"]) {
+                keys.push("opcache.dups_fix");
+            }
+
+            if (this.config.directives["opcache.memory_consumption"] < 128000000) {
+                keys.push("opcache.memory_consumption");
+            }
+
+            if (this.config.directives["opcache.interned_strings_buffer"] < 16) {
+                keys.push("opcache.interned_strings_buffer");
+            }
+
+            if (this.config.directives["opcache.validate_timestamps"]) {
+                keys.push("opcache.validate_timestamps");
+            }
+
+            return keys;
+        }
+    },
+
     mounted: function mounted() {
         this.getStatus();
+        this.getConfig();
     },
 
     methods: {
@@ -715,215 +820,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.status = response.data;
             });
         },
-        compile: function compile() {
+        getConfig: function getConfig() {
             var _this2 = this;
+
+            Nova.request().get('/nova-vendor/nova-opcache/config').then(function (response) {
+                _this2.config = response.data;
+            });
+        },
+        compile: function compile() {
+            var _this3 = this;
 
             this.loading = true;
 
             Nova.request().get('/nova-vendor/nova-opcache/compile').then(function (response) {
                 //this.status = response.data;
-                _this2.loading = false;
-                _this2.$toasted.show('Scripts compiled!', { type: 'success' });
+                _this3.loading = false;
+                _this3.$toasted.show('Scripts compiled!', { type: 'success' });
             }).catch(function (response) {
-                _this2.loading = false;
-                _this2.$toasted.show(response.data, { type: 'error' });
+                _this3.loading = false;
+                _this3.$toasted.show(response.data, { type: 'error' });
             });
         },
         clear: function clear() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.loading = true;
 
             Nova.request().get('/nova-vendor/nova-opcache/clear').then(function (response) {
                 //this.status = response.data;
-                _this3.loading = false;
-                _this3.$toasted.show('OPcache cleared!', { type: 'success' });
+                _this4.loading = false;
+                _this4.$toasted.show('OPcache cleared!', { type: 'success' });
             });
         }
     }
 });
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "bg-gray-900" },
-    [
-      _c("div", { staticClass: "flex" }, [
-        _c("div", { staticClass: "w-full flex items-center mb-6" }, [
-          _c(
-            "div",
-            { staticClass: "flex w-full  items-center mx-3" },
-            [_c("heading", { staticClass: "mb-6" }, [_vm._v("OPcache")])],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex-no-shrink ml-auto" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default btn-primary",
-                attrs: { type: "button", disabled: _vm.loading },
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    return _vm.compile($event)
-                  }
-                }
-              },
-              [
-                _vm._v(
-                  "\n                    Compile scripts\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default btn-primary",
-                attrs: { type: "button", disabled: _vm.loading },
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    return _vm.clear($event)
-                  }
-                }
-              },
-              [_vm._v("\n                Clear OPcache\n                ")]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex bg-gray-200" },
-        [
-          _c(
-            "card",
-            { staticClass: "w-1/3 m-2 p-8 bg-black" },
-            [
-              _c(
-                "heading",
-                { staticClass: "text-white" },
-                [
-                  _c("boolean-icon", {
-                    attrs: { value: _vm.status.opcache_enabled }
-                  }),
-                  _vm._v(" "),
-                  _vm.status.opcache_enabled
-                    ? _c("span", [_vm._v("OPcache Enabled")])
-                    : _c("span", [_vm._v("OPcache disabled")])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "card",
-            { staticClass: "w-1/3 m-2 p-4 bg-black" },
-            [
-              _c("heading", { staticClass: "text-white" }, [
-                _vm._v("\n                Stats")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "card",
-            { staticClass: "w-1/3 m-2 p-4 bg-black" },
-            [
-              _c("heading", { staticClass: "text-white" }, [
-                _vm._v("\n                nog iets")
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "card",
-        {
-          staticClass: "flex flex-col m-2 p-4 bg-black text-white text-sm",
-          staticStyle: { "min-height": "300px" }
-        },
-        [_c("pre", [_vm._v(_vm._s(_vm.status))])]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
-  }
-}
-
-/***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (false) {
   module.exports = require('./vue.common.prod.js')
 } else {
-  module.exports = __webpack_require__(17)
+  module.exports = __webpack_require__(12)
 }
 
 
 /***/ }),
-/* 17 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12887,10 +12831,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(18).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(13).setImmediate))
 
 /***/ }),
-/* 18 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -12946,7 +12890,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(19);
+__webpack_require__(14);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -12957,10 +12901,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 19 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -13150,10 +13094,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(20)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(15)))
 
 /***/ }),
-/* 20 */
+/* 15 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13341,6 +13285,222 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "bg-gray-900" }, [
+    _c("div", { staticClass: "flex" }, [
+      _c("div", { staticClass: "w-full flex items-center mb-6" }, [
+        _c(
+          "div",
+          { staticClass: "flex w-full  items-center mx-3" },
+          [_c("heading", { staticClass: "mb-6" }, [_vm._v("OPcache")])],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex-no-shrink ml-auto" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-primary",
+              attrs: { type: "button", disabled: _vm.loading },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  return _vm.compile($event)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n                        Compile scripts\n                    "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-primary",
+              attrs: { type: "button", disabled: _vm.loading },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  return _vm.clear($event)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n                    Clear OPcache\n                    "
+              )
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "flex bg-gray-200" },
+      [
+        _c(
+          "card",
+          {
+            staticClass: "w-1/3 m-2 p-6 bg-danger text-white",
+            class: { "bg-success": _vm.status.opcache_enabled }
+          },
+          [
+            _c("heading", [
+              _vm.status.opcache_enabled
+                ? _c("span", { staticClass: "text-white" }, [_vm._v("Enabled")])
+                : _c("span", { staticClass: "text-danger" }, [
+                    _vm._v("Disabled")
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mt-2" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.config.version.opcache_product_name) +
+                  " " +
+                  _vm._s(_vm.config.version.version) +
+                  "\n                    "
+              ),
+              _vm.production
+                ? _c("span", [_vm._v("- Optimized for production")])
+                : _c("span", { staticClass: "text-black" }, [
+                    _vm._v("- Not optimized for production")
+                  ])
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card",
+          { staticClass: "w-1/3 m-2 p-4 bg-black" },
+          [_c("heading", { staticClass: "text-white" })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card",
+          { staticClass: "w-1/3 m-2 p-4 bg-black" },
+          [_c("heading", { staticClass: "text-white" })],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "flex bg-gray-200" },
+      [
+        _c(
+          "card",
+          { staticClass: "w-1/3 m-2 p-8 bg-black text-white" },
+          [
+            _c("heading", { staticClass: "text-white mb-4" }, [
+              _vm._v("\n                    Status\n                ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              [
+                _c("li", { staticClass: "mb-1" }, [
+                  _vm._v("\n                        cache_full: "),
+                  _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "mb-1" }, [
+                  _vm._v("\n                        restart_pending: "),
+                  _c("strong", [_vm._v(_vm._s(_vm.status.restart_pending))])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "mb-4" }, [
+                  _vm._v("\n                        restart_in_progress: "),
+                  _c("strong", [_vm._v(_vm._s(_vm.status.restart_in_progress))])
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.status.opcache_statistics, function(item, key) {
+                  return _c("li", { staticClass: "mb-1" }, [
+                    _vm._v("\n                        " + _vm._s(key) + ": "),
+                    _c("strong", [_vm._v(_vm._s(item))])
+                  ])
+                })
+              ],
+              2
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "card",
+          { staticClass: "w-2/3 m-2 p-4 bg-black text-white" },
+          [
+            _c("heading", { staticClass: "text-white mb-4" }, [
+              _vm._v("Config")
+            ]),
+            _vm._v(" "),
+            _vm.config
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.config.directives, function(item, key) {
+                    return _c(
+                      "li",
+                      {
+                        staticClass: "mb-1",
+                        class: {
+                          "text-warning": _vm.notOptimizedKeys.includes(key)
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " + _vm._s(key) + ": "
+                        ),
+                        _c("strong", [_vm._v(_vm._s(item))])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("pre", [_vm._v(_vm._s(_vm.status))]),
+    _vm._v(" "),
+    _c("pre", [_vm._v(_vm._s(_vm.config))])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
+  }
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -15,9 +15,13 @@ use Appstract\Opcache\OpcacheFacade as OPcache;
 |
 */
 
- Route::get('/status', function (Request $request) {
-     return response()->json(OPcache::getStatus());
- });
+Route::get('/status', function (Request $request) {
+    return response()->json(OPcache::getStatus());
+});
+
+Route::get('/config', function (Request $request) {
+    return response()->json(OPcache::getConfig());
+});
 
 Route::get('/clear', function (Request $request) {
     return response()->json(OPcache::clear());
