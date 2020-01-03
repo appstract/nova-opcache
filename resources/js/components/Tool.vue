@@ -36,21 +36,32 @@
                 </heading>
                 <p class="mt-2">
                     {{config.version.opcache_product_name}} {{ config.version.version }}
-                    <span v-if="production">- Optimized for production</span>
-                    <span class="text-black" v-else>- Not optimized for production</span>
+                </p>
+                <p class="mt-2">
+                    <span v-if="production">Optimized for production</span>
+                    <span class="text-warning" v-else>Not optimized for production</span>
                 </p>
             </card>
             <card
-                class="w-1/3 m-2 p-4 bg-black"
+                class="w-1/3 m-2 p-4 bg-black text-white"
             >
-                <heading class="text-white">
-                </heading>
+                <h3 class="flex mb-3 text-base text-white font-bold">
+                    Stats
+                </h3>
+                <p class="mb-2 ml-4">Cache full: <strong>{{ status.cache_full}}</strong></p>
+                <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
+                <p class="mb-2 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong></p>
+                <p class="mb-2 ml-4">Hits: <strong>{{ status.opcache_statistics.hits}}</strong></p>
+                <p class="mb-2 ml-4">Misses: <strong>{{ status.opcache_statistics.misses}}</strong></p>
             </card>
-            <card
-                class="w-1/3 m-2 p-4 bg-black"
-            >
-                <heading class="text-white"></heading>
-            </card>
+
+            <BasePartitionMetric
+                title="Memory Usage"
+                help-text="Memory Usage"
+                help-width="200"
+                :chart-data="memoryChart"
+                :loading="false"
+            />
         </div>
         <div class="flex bg-gray-200">
             <card
@@ -61,15 +72,11 @@
                 </heading>
                 <ul>
                     <li class="mb-1">
-                        cache_full: <strong>{{ status.cache_full }}</strong>
-                    </li>
-                    <li class="mb-1">
                         restart_pending: <strong>{{ status.restart_pending }}</strong>
                     </li>
-                    <li class="mb-4">
+                    <li class="mb-1">
                         restart_in_progress: <strong>{{ status.restart_in_progress }}</strong>
                     </li>
-
                     <li class="mb-1" v-for="(item, key) in status.opcache_statistics">
                         {{ key }}: <strong>{{ item }}</strong>
                     </li>
@@ -97,25 +104,31 @@
 
 <script>
 import Vue from "vue";
+import BasePartitionMetric from './PartitionMetric'
 
 export default {
+    components: {
+        BasePartitionMetric,
+    },
+
     data() {
         return {
             status: [],
             config: [],
-            loading: false
+            loading: false,
         }
     },
 
     computed: {
         production() {
-
-            if (
-                this.config.directives["opcache.memory_consumption"] >= 128000000 &&
-                this.config.directives["opcache.interned_strings_buffer"] >= 16 &&
-                !this.config.directives["opcache.validate_timestamps"]
-            ) {
-                return true;
+            if (this.config.length) {
+                if (
+                    this.config.directives["opcache.memory_consumption"] >= 128 &&
+                    this.config.directives["opcache.interned_strings_buffer"] >= 16 &&
+                    !this.config.directives["opcache.validate_timestamps"]
+                ) {
+                    return true;
+                }
             }
 
             return false;
@@ -132,7 +145,7 @@ export default {
                 keys.push("opcache.dups_fix");
             }
 
-            if (this.config.directives["opcache.memory_consumption"] < 128000000) {
+            if (this.config.directives["opcache.memory_consumption"] < 128) {
                 keys.push("opcache.memory_consumption");
             }
 
@@ -146,13 +159,29 @@ export default {
 
 
             return keys;
+        },
+
+        memoryChart() {
+            // if (!this.status.length) {
+            //     return [];
+            // }
+
+            return [
+                {
+                    label: 'Used',
+                    value: Math.round(this.status.memory_usage.used_memory / 1048576)
+                },
+                {
+                    label: 'Free',
+                    value: Math.round(this.status.memory_usage.free_memory / 1048576)
+                },
+            ]
         }
 
     },
 
     mounted() {
-        this.getStatus();
-        this.getConfig();
+        this.refresh();
     },
     methods: {
         getStatus() {
@@ -174,6 +203,7 @@ export default {
                 //this.status = response.data;
                 this.loading = false;
                 this.$toasted.show('Scripts compiled!', { type: 'success' });
+                this.refresh();
             }).catch(response => {
                 this.loading = false;
                 this.$toasted.show(response.data, { type: 'error' });
@@ -187,8 +217,14 @@ export default {
                 //this.status = response.data;
                 this.loading = false;
                 this.$toasted.show('OPcache cleared!', { type: 'success' });
+                this.refresh();
             });
         },
+
+        refresh() {
+            this.getStatus();
+            this.getConfig();
+        }
     },
 }
 </script>
