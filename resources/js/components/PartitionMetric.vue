@@ -1,5 +1,5 @@
 <template>
-  <loading-card :loading="loading" class="w-1/3 m-2 px-6 py-4 bg-black">
+  <loading-card :loading="loading" class="w-1/3 m-2 px-4 py-4 bg-black">
     <h3 class="flex mb-3 text-base text-white font-bold">
       {{ title }}
 

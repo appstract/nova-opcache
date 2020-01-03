@@ -18559,7 +18559,7 @@ var render = function() {
   return _c(
     "loading-card",
     {
-      staticClass: "w-1/3 m-2 px-6 py-4 bg-black",
+      staticClass: "w-1/3 m-2 px-4 py-4 bg-black",
       attrs: { loading: _vm.loading }
     },
     [
@@ -18729,7 +18729,7 @@ var render = function() {
         _c(
           "card",
           {
-            staticClass: "w-1/3 m-2 p-6 bg-danger text-white",
+            staticClass: "w-1/3 m-2 p-4 bg-danger text-white",
             class: { "bg-success": _vm.status.opcache_enabled }
           },
           [
@@ -18762,48 +18762,53 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("card", { staticClass: "w-1/3 m-2 p-4 bg-black text-white" }, [
-          _c(
-            "h3",
-            { staticClass: "flex mb-3 text-base text-white font-bold" },
-            [_vm._v("\n                    Stats\n                ")]
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-2 ml-4" }, [
-            _vm._v("Cache full: "),
-            _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-2 ml-4" }, [
-            _vm._v("Cached scripts: "),
-            _c("strong", [
-              _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_scripts))
+        _c(
+          "card",
+          { staticClass: "w-1/3 m-2 p-4 bg-black text-white" },
+          [
+            _c("heading", { staticClass: "text-white mb-4" }, [
+              _vm._v("\n                    Stats\n                ")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mb-2 ml-4" }, [
+              _vm._v("Cache full: "),
+              _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mb-2 ml-4" }, [
+              _vm._v("Cached scripts: "),
+              _c("strong", [
+                _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_scripts))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mb-2 ml-4" }, [
+              _vm._v("Cached keys: "),
+              _c("strong", [
+                _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_keys))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mb-2 ml-4" }, [
+              _vm._v("Hits: "),
+              _c("strong", [_vm._v(_vm._s(_vm.status.opcache_statistics.hits))])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "mb-2 ml-4" }, [
+              _vm._v("Misses: "),
+              _c("strong", [
+                _vm._v(_vm._s(_vm.status.opcache_statistics.misses))
+              ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-2 ml-4" }, [
-            _vm._v("Cached keys: "),
-            _c("strong", [
-              _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_keys))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-2 ml-4" }, [
-            _vm._v("Hits: "),
-            _c("strong", [_vm._v(_vm._s(_vm.status.opcache_statistics.hits))])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-2 ml-4" }, [
-            _vm._v("Misses: "),
-            _c("strong", [_vm._v(_vm._s(_vm.status.opcache_statistics.misses))])
-          ])
-        ]),
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("BasePartitionMetric", {
           attrs: {
             title: "Memory Usage",
-            "help-text": "Memory Usage",
-            "help-width": "200",
+            "help-text": "Memory Usage in MB",
+            "help-width": "600",
             "chart-data": _vm.memoryChart,
             loading: false
           }
@@ -18818,7 +18823,7 @@ var render = function() {
       [
         _c(
           "card",
-          { staticClass: "w-1/3 m-2 p-8 bg-black text-white" },
+          { staticClass: "w-1/3 m-2 p-4 bg-black text-white" },
           [
             _c("heading", { staticClass: "text-white mb-4" }, [
               _vm._v("\n                    Status\n                ")

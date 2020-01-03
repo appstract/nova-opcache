@@ -26,7 +26,7 @@
 
         <div class="flex bg-gray-200">
             <card
-                class="w-1/3 m-2 p-6 bg-danger text-white"
+                class="w-1/3 m-2 p-4 bg-danger text-white"
                 :class="{ 'bg-success': status.opcache_enabled }"
             >
                 <heading>
@@ -45,9 +45,9 @@
             <card
                 class="w-1/3 m-2 p-4 bg-black text-white"
             >
-                <h3 class="flex mb-3 text-base text-white font-bold">
+                <heading class="text-white mb-4">
                     Stats
-                </h3>
+                </heading>
                 <p class="mb-2 ml-4">Cache full: <strong>{{ status.cache_full}}</strong></p>
                 <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
                 <p class="mb-2 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong></p>
@@ -57,15 +57,15 @@
 
             <BasePartitionMetric
                 title="Memory Usage"
-                help-text="Memory Usage"
-                help-width="200"
+                help-text="Memory Usage in MB"
+                help-width="600"
                 :chart-data="memoryChart"
                 :loading="false"
             />
         </div>
         <div class="flex bg-gray-200">
             <card
-                class="w-1/3 m-2 p-8 bg-black text-white"
+                class="w-1/3 m-2 p-4 bg-black text-white"
             >
                 <heading class="text-white mb-4">
                     Status
