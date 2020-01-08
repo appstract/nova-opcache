@@ -42,20 +42,6 @@
                     <span class="text-warning" v-else>Not optimized for production</span>
                 </p>
             </card>
-<!--            <card-->
-<!--                class="w-1/3 m-2 p-4 bg-black text-white"-->
-<!--            >-->
-<!--                <heading class="text-white mb-4">-->
-<!--                    Stats-->
-<!--                </heading>-->
-<!--                <p class="mb-2 ml-4">Cached scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>-->
-<!--                <p class="mb-4 ml-4">Cached keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>-->
-<!--                <p class="mb-2 ml-4">Hits: <strong>{{ status.opcache_statistics.hits}}</strong></p>-->
-<!--                <p class="mb-2 ml-4">Misses: <strong>{{ status.opcache_statistics.misses}}</strong></p>-->
-<!--                <p class="mb-4 ml-4">Hit rate: <strong>{{ status.opcache_statistics.opcache_hit_rate }}</strong></p>-->
-<!--                <p class="mb-2 ml-4">Blacklist misses: <strong>{{ status.opcache_statistics.blacklist_misses }}</strong></p>-->
-<!--                <p class="mb-2 ml-4">Blacklist miss rate: <strong>{{ status.opcache_statistics.blacklist_miss_ratio }}</strong></p>-->
-<!--            </card>-->
 
             <BasePartitionMetric
                 title="Memory Usage"
@@ -115,11 +101,6 @@
                 </ul>
             </card>
         </div>
-
-
-        <pre>{{ status }}</pre>
-
-        <pre>{{ config }}</pre>
 
     </div>
 </template>
