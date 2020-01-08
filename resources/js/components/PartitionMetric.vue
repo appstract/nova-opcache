@@ -1,5 +1,5 @@
 <template>
-  <loading-card :loading="loading" class="w-1/3 m-2 px-4 py-4 bg-black">
+  <loading-card :loading="loading" class="w-full p-4 bg-black">
     <h3 class="flex mb-3 text-base text-white font-bold">
       {{ title }}
 
@@ -30,10 +30,10 @@
       <ul class="list-reset">
         <li
           v-for="item in formattedItems"
-          class="text-xs text-white leading-normal"
+          class="text-sm text-white leading-normal"
         >
           <span
-            class="inline-block rounded-full w-2 h-2 mr-2"
+            class="inline-block rounded-full w-2 h-2 mr-2 mb-1"
             :style="{
               backgroundColor: item.color,
             }"
@@ -45,7 +45,7 @@
     <div
       ref="chart"
       :class="chartClasses"
-      style="width: 90px; height: 90px; right: 20px; bottom: 30px; top: calc(50% + 15px);"
+      style="width: 90px; height: 90px;"
     />
   </loading-card>
 </template>
@@ -125,7 +125,9 @@ export default {
         'vertical-center',
         'rounded-b-lg',
         'ct-chart',
-        'mr-4',
+        'relative',
+        'ml-auto',
+        'pin-t',
         this.formattedTotal <= 0 ? 'invisible' : '',
       ]
     },
