@@ -790,6 +790,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -801,8 +807,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            status: [],
-            config: [],
+            status: false,
+            config: false,
             loading: false,
             showStatus: false
         };
@@ -845,6 +851,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return keys;
         },
         hitRatioData: function hitRatioData() {
+            if (!this.status) {
+                return [];
+            }
+
             return [{
                 label: 'Hits',
                 value: this.status.opcache_statistics.hits
@@ -854,9 +864,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }];
         },
         memoryChart: function memoryChart() {
-            // if (!this.status.length) {
-            //     return [];
-            // }
+            if (!this.status) {
+                return [];
+            }
 
             return [{
                 label: 'Used',
@@ -18736,332 +18746,376 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c(
-            "card",
-            {
-              staticClass: "w-full p-4 bg-danger text-white",
-              class: { "bg-success": _vm.status.opcache_enabled }
-            },
-            [
-              _c("heading", [
-                _vm.status.opcache_enabled
-                  ? _c("span", { staticClass: "text-white" }, [
-                      _vm._v("Enabled")
-                    ])
-                  : _c("span", { staticClass: "text-danger" }, [
-                      _vm._v("Disabled")
-                    ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mt-2" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.config.version.opcache_product_name) +
-                    " " +
-                    _vm._s(_vm.config.version.version) +
-                    "\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "flex justify-between mt-2" }, [
-                _c("p", [
-                  _vm.production
-                    ? _c("span", [_vm._v("Optimized for production")])
-                    : _c("span", { staticClass: "text-warning" }, [
-                        _vm._v("Not optimized for production")
-                      ])
-                ]),
-                _vm._v(" "),
+    !_vm.status
+      ? _c(
+          "div",
+          { staticClass: "flex items-stretch bg-gray-200 p-8" },
+          [_c("loader", { staticClass: "text-60" })],
+          1
+        )
+      : _c("span", [
+          _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
                 _c(
-                  "button",
+                  "card",
                   {
-                    staticClass: "underline",
-                    on: {
-                      click: function($event) {
-                        _vm.showStatus = !_vm.showStatus
-                      }
-                    }
+                    staticClass: "w-full p-4 bg-danger text-white",
+                    class: { "bg-success": _vm.status.opcache_enabled }
                   },
-                  [_vm._v("Status info")]
-                )
-              ]),
-              _vm._v(" "),
-              _vm.showStatus
-                ? _c(
-                    "card",
-                    { staticClass: "w-full p-4 mt-4 bg-black text-white" },
-                    [
-                      _c("heading", { staticClass: "text-white mb-4" }, [
-                        _vm._v(
-                          "\n                        Status\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Cache full: "),
-                        _c("strong", [_vm._v(_vm._s(_vm.status.cache_full))])
-                      ]),
-                      _c("p"),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Restart pending: "),
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.status.restart_pending))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-4" }, [
-                        _vm._v("Restart in progress: "),
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.status.restart_in_progress))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Start time: "),
-                        _c("strong", [
+                  [
+                    _c("heading", [
+                      _vm.status.opcache_enabled
+                        ? _c("span", { staticClass: "text-white" }, [
+                            _vm._v("Enabled")
+                          ])
+                        : _c("span", { staticClass: "text-danger" }, [
+                            _vm._v("Disabled")
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.config.version
+                      ? _c("p", { staticClass: "mt-2" }, [
                           _vm._v(
-                            _vm._s(
-                              new Date(_vm.status.opcache_statistics.start_time)
-                            )
+                            "\n                        " +
+                              _vm._s(_vm.config.version.opcache_product_name) +
+                              " " +
+                              _vm._s(_vm.config.version.version) +
+                              "\n                    "
                           )
                         ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex justify-between mt-2" }, [
+                      _c("p", [
+                        _vm.production
+                          ? _c("span", [_vm._v("Optimized for production")])
+                          : _c("span", { staticClass: "text-warning" }, [
+                              _vm._v("Not optimized for production")
+                            ])
                       ]),
                       _vm._v(" "),
-                      _c("p", { staticClass: "mb-4" }, [
-                        _vm._v("Last restart time: "),
-                        _c("strong", [
-                          _vm._v(
-                            _vm._s(
-                              new Date(
-                                _vm.status.opcache_statistics.last_restart_time
-                              )
-                            )
-                          )
-                        ])
-                      ]),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Oom restarts: "),
-                        _c("strong", [
-                          _vm._v(
-                            _vm._s(_vm.status.opcache_statistics.oom_restarts)
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Hash restarts: "),
-                        _c("strong", [
-                          _vm._v(
-                            _vm._s(_vm.status.opcache_statistics.hash_restarts)
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-2" }, [
-                        _vm._v("Manual restarts: "),
-                        _c("strong", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.status.opcache_statistics.manual_restarts
-                            )
-                          )
-                        ])
-                      ])
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c("BasePartitionMetric", {
-            attrs: {
-              title: "Memory Usage",
-              "help-text": "Memory Usage in MB",
-              "help-width": "600",
-              "chart-data": _vm.memoryChart,
-              loading: false
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c("BasePartitionMetric", {
-            attrs: {
-              title: "Hit Amount",
-              "chart-data": _vm.hitRatioData,
-              loading: false
-            }
-          })
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c(
-            "card",
-            { staticClass: "w-full p-4 bg-black text-white" },
-            [
-              _c("heading", { staticClass: "text-white mb-4" }, [
-                _vm._v("\n                    Cached\n                ")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-2" }, [
-                _vm._v("Scripts: "),
-                _c("strong", [
-                  _vm._v(
-                    _vm._s(_vm.status.opcache_statistics.num_cached_scripts)
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-2" }, [
-                _vm._v("Keys: "),
-                _c("strong", [
-                  _vm._v(_vm._s(_vm.status.opcache_statistics.num_cached_keys))
-                ]),
-                _vm._v(
-                  " (max " +
-                    _vm._s(_vm.status.opcache_statistics.max_cached_keys) +
-                    ")"
-                )
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c(
-            "card",
-            { staticClass: "w-full p-4 bg-black text-white" },
-            [
-              _c("heading", { staticClass: "text-white mb-4" }, [
-                _vm._v("\n                    Hit Ratio\n                ")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-2 text-right font-bold text-5xl" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm.status.opcache_statistics.opcache_hit_rate.toFixed(2)
-                  ) + "%"
-                )
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex w-1/3 p-2" },
-        [
-          _c(
-            "card",
-            { staticClass: "w-full p-4 bg-black text-white" },
-            [
-              _c("heading", { staticClass: "text-white mb-4" }, [
-                _vm._v("\n                    Blacklist\n                ")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-2" }, [
-                _vm._v("Misses: "),
-                _c("strong", [
-                  _vm._v(_vm._s(_vm.status.opcache_statistics.blacklist_misses))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-2" }, [
-                _vm._v("Miss rate: "),
-                _c("strong", [
-                  _vm._v(
-                    _vm._s(_vm.status.opcache_statistics.blacklist_miss_ratio)
-                  )
-                ])
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
-      _c(
-        "div",
-        { staticClass: "flex flex-col w-full p-2" },
-        [
-          _c(
-            "card",
-            { staticClass: "w-full p-4 bg-black text-white" },
-            [
-              _c("heading", { staticClass: "text-white mb-4" }, [
-                _vm._v("Config")
-              ]),
-              _vm._v(" "),
-              _vm.config
-                ? _c(
-                    "ul",
-                    { staticClass: "list-style-none" },
-                    _vm._l(_vm.config.directives, function(item, key) {
-                      return _c(
-                        "li",
+                      _c(
+                        "button",
                         {
-                          key: key,
-                          staticClass: "mb-1",
-                          class: {
-                            "text-warning": _vm.notOptimizedKeys.includes(key)
+                          staticClass: "underline",
+                          on: {
+                            click: function($event) {
+                              _vm.showStatus = !_vm.showStatus
+                            }
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                        " + _vm._s(key) + ": "
-                          ),
-                          _c("strong", [_vm._v(_vm._s(item))])
-                        ]
+                        [_vm._v("Status info")]
                       )
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.showStatus
+                      ? _c(
+                          "card",
+                          {
+                            staticClass: "w-full p-4 mt-4 bg-black text-white"
+                          },
+                          [
+                            _c("heading", { staticClass: "text-white mb-4" }, [
+                              _vm._v(
+                                "\n                            Status\n                        "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Cache full: "),
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.status.cache_full))
+                              ])
+                            ]),
+                            _c("p"),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Restart pending: "),
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.status.restart_pending))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-4" }, [
+                              _vm._v("Restart in progress: "),
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.status.restart_in_progress))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Start time: "),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    new Date(
+                                      _vm.status.opcache_statistics.start_time
+                                    )
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-4" }, [
+                              _vm._v("Last restart time: "),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    new Date(
+                                      _vm.status.opcache_statistics.last_restart_time
+                                    )
+                                  )
+                                )
+                              ])
+                            ]),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Oom restarts: "),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.status.opcache_statistics.oom_restarts
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Hash restarts: "),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.status.opcache_statistics.hash_restarts
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _vm._v("Manual restarts: "),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.status.opcache_statistics
+                                      .manual_restarts
+                                  )
+                                )
+                              ])
+                            ])
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
+                _c("BasePartitionMetric", {
+                  attrs: {
+                    title: "Memory Usage",
+                    "help-text": "Memory Usage in MB",
+                    "help-width": "600",
+                    "chart-data": _vm.memoryChart,
+                    loading: false
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
+                _c("BasePartitionMetric", {
+                  attrs: {
+                    title: "Hit Amount",
+                    "chart-data": _vm.hitRatioData,
+                    loading: false
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
+                _c(
+                  "card",
+                  { staticClass: "w-full p-4 bg-black text-white" },
+                  [
+                    _c("heading", { staticClass: "text-white mb-4" }, [
+                      _vm._v(
+                        "\n                        Cached\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2" }, [
+                      _vm._v("Scripts: "),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.status.opcache_statistics.num_cached_scripts
+                          )
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2" }, [
+                      _vm._v("Keys: "),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(_vm.status.opcache_statistics.num_cached_keys)
+                        )
+                      ]),
+                      _vm._v(
+                        " (max " +
+                          _vm._s(
+                            _vm.status.opcache_statistics.max_cached_keys
+                          ) +
+                          ")"
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
+                _c(
+                  "card",
+                  { staticClass: "w-full p-4 bg-black text-white" },
+                  [
+                    _c("heading", { staticClass: "text-white mb-4" }, [
+                      _vm._v(
+                        "\n                        Hit Ratio\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "mb-2 text-right font-bold text-5xl" },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.status.opcache_statistics.opcache_hit_rate.toFixed(
+                              2
+                            )
+                          ) + "%"
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex w-1/3 p-2" },
+              [
+                _c(
+                  "card",
+                  { staticClass: "w-full p-4 bg-black text-white" },
+                  [
+                    _c("heading", { staticClass: "text-white mb-4" }, [
+                      _vm._v(
+                        "\n                        Blacklist\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2" }, [
+                      _vm._v("Misses: "),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(_vm.status.opcache_statistics.blacklist_misses)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2" }, [
+                      _vm._v("Miss rate: "),
+                      _c("strong", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.status.opcache_statistics.blacklist_miss_ratio
+                          )
+                        )
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex items-stretch bg-gray-200 mb-4" }, [
+            _c(
+              "div",
+              { staticClass: "flex flex-col w-full p-2" },
+              [
+                _c(
+                  "card",
+                  { staticClass: "w-full p-4 bg-black text-white" },
+                  [
+                    _c("heading", { staticClass: "text-white mb-4" }, [
+                      _vm._v("Config")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "list-style-none" },
+                      _vm._l(_vm.config.directives, function(item, key) {
+                        return _c(
+                          "li",
+                          {
+                            key: key,
+                            staticClass: "mb-1",
+                            class: {
+                              "text-warning": _vm.notOptimizedKeys.includes(key)
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(key) +
+                                ": "
+                            ),
+                            _c("strong", [_vm._v(_vm._s(item))])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ])
   ])
 }
 var staticRenderFns = []

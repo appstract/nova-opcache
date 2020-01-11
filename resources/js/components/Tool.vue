@@ -22,106 +22,112 @@
             </div>
         </div>
 
-        <div class="flex items-stretch bg-gray-200 mb-4">
-            <div class="flex w-1/3 p-2">
-                <card
-                    class="w-full p-4 bg-danger text-white"
-                    :class="{ 'bg-success': status.opcache_enabled }"
-                >
-                    <heading>
-                    <!-- <boolean-icon :value="status.opcache_enabled" class="bg-white"/> -->
-                        <span v-if="status.opcache_enabled" class="text-white">Enabled</span>
-                        <span v-else class="text-danger">Disabled</span>
-                    </heading>
-                    <p class="mt-2">
-                        {{config.version.opcache_product_name}} {{ config.version.version }}
-                    </p>
-                    <div class="flex justify-between mt-2">
-                        <p>
-                            <span v-if="production">Optimized for production</span>
-                            <span class="text-warning" v-else>Not optimized for production</span>
-                        </p>
-                        <button class="underline" @click="showStatus = !showStatus">Status info</button>
-                    </div>
+        <div class="flex items-stretch bg-gray-200 p-8" v-if="!status">
+            <loader class="text-60" />
+        </div>
 
-                    <card class="w-full p-4 mt-4 bg-black text-white" v-if="showStatus">
-                        <heading class="text-white mb-4">
-                            Status
+        <span v-else>
+            <div class="flex items-stretch bg-gray-200 mb-4">
+                <div class="flex w-1/3 p-2">
+                    <card
+                        class="w-full p-4 bg-danger text-white"
+                        :class="{ 'bg-success': status.opcache_enabled }"
+                    >
+                        <heading>
+                        <!-- <boolean-icon :value="status.opcache_enabled" class="bg-white"/> -->
+                            <span v-if="status.opcache_enabled" class="text-white">Enabled</span>
+                            <span v-else class="text-danger">Disabled</span>
                         </heading>
-                        <p class="mb-2">Cache full: <strong>{{ status.cache_full }}</strong><p>
-                        <p class="mb-2">Restart pending: <strong>{{ status.restart_pending }}</strong></p>
-                        <p class="mb-4">Restart in progress: <strong>{{ status.restart_in_progress }}</strong></p>
-                        <p class="mb-2">Start time: <strong>{{ new Date(status.opcache_statistics.start_time) }}</strong></p>
-                        <p class="mb-4">Last restart time: <strong>{{ new Date(status.opcache_statistics.last_restart_time) }}</strong</p>
-                        <p class="mb-2">Oom restarts: <strong>{{ status.opcache_statistics.oom_restarts }}</strong></p>
-                        <p class="mb-2">Hash restarts: <strong>{{ status.opcache_statistics.hash_restarts }}</strong></p>
-                        <p class="mb-2">Manual restarts: <strong>{{ status.opcache_statistics.manual_restarts }}</strong></p>
+                        <p class="mt-2" v-if="config.version">
+                            {{config.version.opcache_product_name}} {{ config.version.version }}
+                        </p>
+                        <div class="flex justify-between mt-2">
+                            <p>
+                                <span v-if="production">Optimized for production</span>
+                                <span class="text-warning" v-else>Not optimized for production</span>
+                            </p>
+                            <button class="underline" @click="showStatus = !showStatus">Status info</button>
+                        </div>
+
+                        <card class="w-full p-4 mt-4 bg-black text-white" v-if="showStatus">
+                            <heading class="text-white mb-4">
+                                Status
+                            </heading>
+                            <p class="mb-2">Cache full: <strong>{{ status.cache_full }}</strong><p>
+                            <p class="mb-2">Restart pending: <strong>{{ status.restart_pending }}</strong></p>
+                            <p class="mb-4">Restart in progress: <strong>{{ status.restart_in_progress }}</strong></p>
+                            <p class="mb-2">Start time: <strong>{{ new Date(status.opcache_statistics.start_time) }}</strong></p>
+                            <p class="mb-4">Last restart time: <strong>{{ new Date(status.opcache_statistics.last_restart_time) }}</strong</p>
+                            <p class="mb-2">Oom restarts: <strong>{{ status.opcache_statistics.oom_restarts }}</strong></p>
+                            <p class="mb-2">Hash restarts: <strong>{{ status.opcache_statistics.hash_restarts }}</strong></p>
+                            <p class="mb-2">Manual restarts: <strong>{{ status.opcache_statistics.manual_restarts }}</strong></p>
+                        </card>
                     </card>
-                </card>
+                </div>
+
+                <div class="flex w-1/3 p-2">
+                    <BasePartitionMetric
+                        title="Memory Usage"
+                        help-text="Memory Usage in MB"
+                        help-width="600"
+                        :chart-data="memoryChart"
+                        :loading="false"
+                    />
+                </div>
+
+                <div class="flex w-1/3 p-2">
+                    <BasePartitionMetric
+                        title="Hit Amount"
+                        :chart-data="hitRatioData"
+                        :loading="false"
+                    />
+                </div>
             </div>
 
-            <div class="flex w-1/3 p-2">
-                <BasePartitionMetric
-                    title="Memory Usage"
-                    help-text="Memory Usage in MB"
-                    help-width="600"
-                    :chart-data="memoryChart"
-                    :loading="false"
-                />
+            <div class="flex items-stretch bg-gray-200 mb-4">
+                <div class="flex w-1/3 p-2">
+                    <card class="w-full p-4 bg-black text-white">
+                        <heading class="text-white mb-4">
+                            Cached
+                        </heading>
+                        <p class="mb-2">Scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
+                        <p class="mb-2">Keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>
+                    </card>
+                </div>
+
+                <div class="flex w-1/3 p-2">
+                    <card class="w-full p-4 bg-black text-white">
+                        <heading class="text-white mb-4">
+                            Hit Ratio
+                        </heading>
+                        <p class="mb-2 text-right font-bold text-5xl">{{ status.opcache_statistics.opcache_hit_rate.toFixed(2) }}%</p>
+                    </card>
+                </div>
+
+                <div class="flex w-1/3 p-2">
+                    <card class="w-full p-4 bg-black text-white">
+                        <heading class="text-white mb-4">
+                            Blacklist
+                        </heading>
+                        <p class="mb-2">Misses: <strong>{{ status.opcache_statistics.blacklist_misses }}</strong></p>
+                        <p class="mb-2">Miss rate: <strong>{{ status.opcache_statistics.blacklist_miss_ratio }}</strong></p>
+                    </card>
+                </div>
             </div>
 
-            <div class="flex w-1/3 p-2">
-                <BasePartitionMetric
-                    title="Hit Amount"
-                    :chart-data="hitRatioData"
-                    :loading="false"
-                />
+            <div class="flex items-stretch bg-gray-200 mb-4">
+                <div class="flex flex-col w-full p-2">
+                    <card class="w-full p-4 bg-black text-white">
+                        <heading class="text-white mb-4">Config</heading>
+                        <ul class="list-style-none">
+                            <li class="mb-1" :class="{'text-warning': notOptimizedKeys.includes(key)}" v-for="(item, key) in config.directives" :key="key">
+                                {{ key }}: <strong>{{ item }}</strong>
+                            </li>
+                        </ul>
+                    </card>
+                </div>
             </div>
-        </div>
-
-        <div class="flex items-stretch bg-gray-200 mb-4">
-            <div class="flex w-1/3 p-2">
-                <card class="w-full p-4 bg-black text-white">
-                    <heading class="text-white mb-4">
-                        Cached
-                    </heading>
-                    <p class="mb-2">Scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
-                    <p class="mb-2">Keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>
-                </card>
-            </div>
-
-            <div class="flex w-1/3 p-2">
-                <card class="w-full p-4 bg-black text-white">
-                    <heading class="text-white mb-4">
-                        Hit Ratio
-                    </heading>
-                    <p class="mb-2 text-right font-bold text-5xl">{{ status.opcache_statistics.opcache_hit_rate.toFixed(2) }}%</p>
-                </card>
-            </div>
-
-            <div class="flex w-1/3 p-2">
-                <card class="w-full p-4 bg-black text-white">
-                    <heading class="text-white mb-4">
-                        Blacklist
-                    </heading>
-                    <p class="mb-2">Misses: <strong>{{ status.opcache_statistics.blacklist_misses }}</strong></p>
-                    <p class="mb-2">Miss rate: <strong>{{ status.opcache_statistics.blacklist_miss_ratio }}</strong></p>
-                </card>
-            </div>
-        </div>
-
-        <div class="flex items-stretch bg-gray-200 mb-4">
-            <div class="flex flex-col w-full p-2">
-                <card class="w-full p-4 bg-black text-white">
-                    <heading class="text-white mb-4">Config</heading>
-                    <ul class="list-style-none" v-if="config">
-                        <li class="mb-1" :class="{'text-warning': notOptimizedKeys.includes(key)}" v-for="(item, key) in config.directives" :key="key">
-                            {{ key }}: <strong>{{ item }}</strong>
-                        </li>
-                    </ul>
-                </card>
-            </div>
-        </div>
+        </span>
     </div>
 </template>
 
@@ -136,8 +142,8 @@ export default {
 
     data() {
         return {
-            status: [],
-            config: [],
+            status: false,
+            config: false,
             loading: false,
             showStatus: false,
         }
@@ -186,6 +192,10 @@ export default {
         },
 
         hitRatioData() {
+            if (!this.status) {
+                return [];
+            }
+
             return [
                 {
                     label: 'Hits',
@@ -199,9 +209,9 @@ export default {
         },
 
         memoryChart() {
-            // if (!this.status.length) {
-            //     return [];
-            // }
+            if (!this.status) {
+                return [];
+            }
 
             return [
                 {
