@@ -1,13 +1,15 @@
 {
     "name": "appstract/nova-opcache",
-    "description": "A Laravel Nova tool.",
+    "description": "A Laravel Nova tool for OPcache",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "opcache"
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.1.0"
+        "php": ">=7.1.0",
+        "appstract/laravel-opcache": "^3.2"
     },
     "autoload": {
         "psr-4": {
