@@ -49,19 +49,19 @@
                             <button class="underline" @click="showStatus = !showStatus">Status info</button>
                         </div>
 
-                        <card class="w-full p-4 mt-4 bg-black text-white" v-if="showStatus">
+                        <div class="w-full mt-4 text-white" v-if="showStatus">
                             <heading class="text-white mb-4">
                                 Status
                             </heading>
-                            <p class="mb-2">Cache full: <strong>{{ status.cache_full }}</strong><p>
+                            <p class="mb-2">Cache full: <strong>{{ status.cache_full }}</strong></p>
                             <p class="mb-2">Restart pending: <strong>{{ status.restart_pending }}</strong></p>
-                            <p class="mb-4">Restart in progress: <strong>{{ status.restart_in_progress }}</strong></p>
-                            <p class="mb-2">Start time: <strong>{{ new Date(status.opcache_statistics.start_time) }}</strong></p>
-                            <p class="mb-4">Last restart time: <strong>{{ new Date(status.opcache_statistics.last_restart_time) }}</strong</p>
+                            <p class="mb-2">Restart in progress: <strong>{{ status.restart_in_progress }}</strong></p>
+                            <p class="mb-2">Start time: <br /><strong>{{ new Date(status.opcache_statistics.start_time) }}</strong></p>
+                            <p class="mb-2">Last restart time: <br /><strong>{{ new Date(status.opcache_statistics.last_restart_time) }}</strong</p>
                             <p class="mb-2">Oom restarts: <strong>{{ status.opcache_statistics.oom_restarts }}</strong></p>
                             <p class="mb-2">Hash restarts: <strong>{{ status.opcache_statistics.hash_restarts }}</strong></p>
                             <p class="mb-2">Manual restarts: <strong>{{ status.opcache_statistics.manual_restarts }}</strong></p>
-                        </card>
+                        </div>
                     </card>
                 </div>
 
@@ -90,7 +90,7 @@
                         <heading class="text-white mb-4">
                             Cached
                         </heading>
-                        <p class="mb-2">Scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong></p>
+                        <p class="mb-2">Scripts: <strong>{{ status.opcache_statistics.num_cached_scripts}}</strong> (max {{ config.directives['opcache.max_accelerated_files']}})</p>
                         <p class="mb-2">Keys: <strong>{{ status.opcache_statistics.num_cached_keys}}</strong> (max {{ status.opcache_statistics.max_cached_keys}})</p>
                     </card>
                 </div>

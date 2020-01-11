@@ -18813,10 +18813,8 @@ var render = function() {
                     _vm._v(" "),
                     _vm.showStatus
                       ? _c(
-                          "card",
-                          {
-                            staticClass: "w-full p-4 mt-4 bg-black text-white"
-                          },
+                          "div",
+                          { staticClass: "w-full mt-4 text-white" },
                           [
                             _c("heading", { staticClass: "text-white mb-4" }, [
                               _vm._v(
@@ -18830,7 +18828,7 @@ var render = function() {
                                 _vm._v(_vm._s(_vm.status.cache_full))
                               ])
                             ]),
-                            _c("p"),
+                            _vm._v(" "),
                             _c("p", { staticClass: "mb-2" }, [
                               _vm._v("Restart pending: "),
                               _c("strong", [
@@ -18838,7 +18836,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "mb-4" }, [
+                            _c("p", { staticClass: "mb-2" }, [
                               _vm._v("Restart in progress: "),
                               _c("strong", [
                                 _vm._v(_vm._s(_vm.status.restart_in_progress))
@@ -18847,6 +18845,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("p", { staticClass: "mb-2" }, [
                               _vm._v("Start time: "),
+                              _c("br"),
                               _c("strong", [
                                 _vm._v(
                                   _vm._s(
@@ -18858,8 +18857,9 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "mb-4" }, [
+                            _c("p", { staticClass: "mb-2" }, [
                               _vm._v("Last restart time: "),
+                              _c("br"),
                               _c("strong", [
                                 _vm._v(
                                   _vm._s(
@@ -18970,7 +18970,16 @@ var render = function() {
                             _vm.status.opcache_statistics.num_cached_scripts
                           )
                         )
-                      ])
+                      ]),
+                      _vm._v(
+                        " (max " +
+                          _vm._s(
+                            _vm.config.directives[
+                              "opcache.max_accelerated_files"
+                            ]
+                          ) +
+                          ")"
+                      )
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "mb-2" }, [

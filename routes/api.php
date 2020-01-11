@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Appstract\Opcache\OpcacheFacade as OPcache;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +13,10 @@ use Appstract\Opcache\OpcacheFacade as OPcache;
 |
 */
 
-Route::get('/status', function (Request $request) {
-    return response()->json(OPcache::getStatus());
-});
+Route::get('/clear', 'NovaOpcacheController@clear');
 
-Route::get('/config', function (Request $request) {
-    return response()->json(OPcache::getConfig());
-});
+Route::get('/config', 'NovaOpcacheController@config');
 
-Route::get('/clear', function (Request $request) {
-    return response()->json(OPcache::clear());
-});
+Route::get('/status', 'NovaOpcacheController@status');
 
-Route::get('/compile', function (Request $request) {
-    return response()->json(OPcache::compile(true));
-});
+Route::get('/compile', 'NovaOpcacheController@compile');
