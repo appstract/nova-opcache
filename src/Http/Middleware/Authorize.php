@@ -2,8 +2,8 @@
 
 namespace Appstract\NovaOpcache\Http\Middleware;
 
-use Laravel\Nova\Nova;
 use Appstract\NovaOpcache\NovaOpcache;
+use Laravel\Nova\Nova;
 
 class Authorize
 {

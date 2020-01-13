@@ -2,11 +2,11 @@
 
 namespace Appstract\NovaOpcache;
 
+use Appstract\NovaOpcache\Http\Middleware\Authorize;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Appstract\NovaOpcache\Http\Middleware\Authorize;
 
 class ToolServiceProvider extends ServiceProvider
 {
